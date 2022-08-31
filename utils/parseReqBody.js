@@ -1,11 +1,11 @@
-const parseReqBody = req =>
-  new Promise(resolve => {
+const parseReqBody = (req) =>
+  new Promise((resolve) => {
     let body = [];
     req
-      .on('data', chunk => {
+      .on("data", (chunk) => {
         body.push(chunk);
       })
-      .on('end', () => {
+      .on("end", () => {
         body = Buffer.concat(body).toString();
         resolve(body);
       });

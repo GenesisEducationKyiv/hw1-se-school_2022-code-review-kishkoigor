@@ -1,11 +1,10 @@
-const getBtcRate = require('../api');
+const getBtcRate = require("../api");
 
 const rateHandler = async (req, res) =>
   getBtcRate()
-    .then(data => {
-      const [[, bid]] = data;
+    .then((data) => {
       res.writeHead(200);
-      res.write(bid.toString());
+      res.write(data.toString());
       res.end();
     })
     .catch(() => {

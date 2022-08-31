@@ -2,7 +2,7 @@ const http = require("http");
 const rateHandler = require("./routes/rateHandler");
 const subscribeHandler = require("./routes/subscribeHandler");
 const sendEmailsHandler = require("./routes/sendEmailsHandler");
-const notFound = require("./routes/notFound");
+const notFoundHandler = require("./routes/notFoundHandler");
 
 const routing = async (req, res) => {
   const { url, method } = req;
@@ -22,7 +22,7 @@ const routing = async (req, res) => {
     return;
   }
 
-  notFound(res);
+  notFoundHandler(req, res);
 };
 
 http.createServer(routing).listen(8000);

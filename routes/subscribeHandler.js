@@ -1,13 +1,20 @@
-const parseReqBody = require('../utils/parseReqBody');
-const validateEmail = require('../utils/validateEmail');
-const db = require('../db/index');
+const parseReqBody = require("../utils/parseReqBody");
+const validateEmail = require("../utils/validateEmail");
+const db = require("../db/index");
 
-const subscribeHandler = async (req, res) => {
-  const email = await parseReqBody(req);
+const invalidBodyHandler = (res) => {
+  res.writeHead(400);
+  res.write("invalid email");
+  res.end();
+};
 
-  if (!validateEmail(email)) return handleInvalidBody(res);
-  if (db.checkIfSaved(email)) return handleAlreadySaved(res);
+const alreadySavedHandler = (res) => {
+  res.writeHead(409);
+  res.write("already saved");
+  res.end();
+};
 
+const saveEmailHandler = (res, email) => {
   try {
     db.appendToList(email);
     res.writeHead(200);
@@ -18,16 +25,12 @@ const subscribeHandler = async (req, res) => {
   }
 };
 
-const handleInvalidBody = res => {
-  res.writeHead(400);
-  res.write('invalid email');
-  res.end();
-};
+const subscribeHandler = async (req, res) => {
+  const email = await parseReqBody(req);
 
-const handleAlreadySaved = res => {
-  res.writeHead(409);
-  res.write('already saved');
-  res.end();
+  if (!validateEmail(email)) return invalidBodyHandler(res);
+  if (db.checkIfSaved(email)) return alreadySavedHandler(res);
+  return saveEmailHandler(res, email);
 };
 
 module.exports = subscribeHandler;
