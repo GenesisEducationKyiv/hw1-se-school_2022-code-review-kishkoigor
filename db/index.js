@@ -1,11 +1,17 @@
 const fs = require("fs");
-const store = require("./store.json");
+
+const { DB_FILE_NAME } = process.env;
+const dbFile = fs.readFileSync(`./db/${DB_FILE_NAME}`, {
+  encoding: "utf8",
+  flag: "r",
+});
+const store = JSON.parse(dbFile);
 
 const getList = () => store;
 
 const appendToList = (email) => {
   store.push(email);
-  fs.writeFile("./db/store.json", JSON.stringify(store), (err) => {
+  fs.writeFile(`./db/${DB_FILE_NAME}`, JSON.stringify(store), (err) => {
     if (err) throw new Error("email wasn't saved");
   });
 };

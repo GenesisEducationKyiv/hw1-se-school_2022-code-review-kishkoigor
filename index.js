@@ -1,4 +1,6 @@
 const http = require("http");
+require("dotenv").config();
+
 const rateHandler = require("./routes/rateHandler");
 const subscribeHandler = require("./routes/subscribeHandler");
 const sendEmailsHandler = require("./routes/sendEmailsHandler");

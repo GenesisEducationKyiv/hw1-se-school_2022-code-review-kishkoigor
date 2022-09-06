@@ -1,11 +1,13 @@
 #Task for Genesis Software Engineering School
 
 ##Build:
+
 ```
 docker build . -t kishkoigor/gses2-btc-app
 ```
 
 ##Run:
+
 ```
 docker run \
  -v "$(pwd)"/db:/usr/src/app/db \
