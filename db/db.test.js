@@ -9,12 +9,12 @@ fs.writeFileSync(`./db/${DB_FILE_NAME}`, mockData);
 
 const db = require("./index");
 
-test("db.getList reading list from file", () => {
+test("[unit] db.getList reading list from file", () => {
   const list = db.getList();
   expect(list).toContain(emailAddressMock);
 });
 
-describe("db.appendToList", () => {
+describe("[unit] db.appendToList", () => {
   const anotherEmailAddressMock = "jonny.depp@celeb.com";
   db.appendToList(anotherEmailAddressMock);
 
@@ -32,7 +32,7 @@ describe("db.appendToList", () => {
   });
 });
 
-describe("db.checkIfExist", () => {
+describe("[unit] db.checkIfExist", () => {
   test("return true for existing email", () => {
     const isEmailExist = db.checkIfSaved(emailAddressMock);
     expect(isEmailExist).toBe(true);

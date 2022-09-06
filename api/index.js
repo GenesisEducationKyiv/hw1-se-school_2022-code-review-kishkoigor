@@ -8,6 +8,6 @@ const getBtcRate = () =>
       }
       return res.json();
     })
-    .then(([, bid]) => bid);
+    .then(([[, bid]]) => bid);
 
 module.exports = getBtcRate;
